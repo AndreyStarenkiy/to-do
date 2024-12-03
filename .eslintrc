@@ -1,0 +1,50 @@
+{
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2022": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module"
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:react/jsx-runtime",
+      "airbnb/base"
+    ],
+    "plugins": ["@babel", "react", "react-hooks", "prettier"],
+    "rules": {
+      "no-unused-vars": [
+        "off",
+        {
+          "varsIgnorePattern": "React"
+        }
+      ],
+      //"tabWidth": 2,
+      "singleQuote": 0,
+      "import/no-named-as-default": 0,
+      "import/extensions": ["off"],
+      "react/prop-types": 0,
+      "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
+      "class-methods-use-this": [
+        "error",
+        {
+          "exceptMethods": ["render"]
+        }
+      ],
+      /* "no-invalid-this": 0, */
+      "@babel/no-invalid-this": "error"
+      
+      //add customize rules here as per your project's needs
+    },
+    "settings": {
+      "react": {
+        "version": "detect",
+        "defaultVersion": "18.3.1"
+      },
+      "arrow-body-style": ["never"]
+    }
+}
