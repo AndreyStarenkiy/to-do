@@ -14,20 +14,17 @@ export default class Task extends Component {
     this.setState({
       done: !this.state.done,
     });
-    this.setState((state) => {
+    /* this.setState((state) => {
       console.log(state.done);
-    });
+    }); */
 
-    console.log(`current element id: ${this.props.item.id}`);
+    /* console.log(`current element id: ${this.props.item.id}`); */
   };
 
   render() {
     const { label } = this.props.item;
     const { onDeleted } = this.props;
     const { done } = this.state;
-    console.log(this.props.item);
-    console.log(this.props);
-    console.log(onDeleted);
 
     let classNames = 'description';
 

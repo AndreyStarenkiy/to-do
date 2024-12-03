@@ -3,8 +3,8 @@ import Task from '../task/task';
 
 const TaskList = (props) => {
   const { onDeleted } = props;
-  console.log(props);
-  console.log(onDeleted);
+  /* console.log(props);
+  console.log(onDeleted); */
 
   const elements = props.todos.map((item) => (
     <li key={item.id}>

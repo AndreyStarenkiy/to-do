@@ -41,7 +41,7 @@ export default class ToDoApp extends Component {
   deleteItem = (id) => {
     this.setState(({ protoList }) => {
       const index = protoList.findIndex((el) => el.id === id);
-      console.log(index);
+      /* console.log(index); */
 
       return {
         protoList: protoList.toSpliced(index, 1),
