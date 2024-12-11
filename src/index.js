@@ -15,28 +15,23 @@ export default class ToDoApp extends Component {
 
   state = {
     protoList: [
-      {
-        label: 'Todoshka',
-        important: true,
-        id: 1,
-      },
-      {
-        label: 'raz dva',
-        important: false,
-        id: 2,
-      },
-      {
-        label: 'Three',
-        important: false,
-        id: 3,
-      },
-      {
-        label: 'New one!',
-        important: true,
-        id: 4,
-      },
+      this.createTodoItem('Todoshka'),
+      this.createTodoItem('raz dva'),
+      this.createTodoItem('Three'),
+      this.createTodoItem('New one!'),
     ],
+    filterMode: 'all',
   };
+
+  createTodoItem(label) {
+    this.idCounter += 1;
+    return {
+      label,
+      done: false,
+      id: this.idCounter,
+      active: true,
+    };
+  }
 
   deleteItem = (id) => {
     this.setState(({ protoList }) => {
@@ -49,11 +44,34 @@ export default class ToDoApp extends Component {
     });
   };
 
+  selectFilter = (mode) => {
+    this.setState({ filterMode: mode });
+    /* this.setState((state) => {
+      console.log('пожалуйста сработай');
+      console.log(state);
+    }); */
+  };
+
+  onToggleDone = (id) => {
+    this.setState(({ protoList }) => {
+      const index = protoList.findIndex((el) => el.id === id);
+
+      const oldItem = protoList[index];
+      const newItem = { ...oldItem, done: !oldItem.done };
+
+      const newArr = protoList.toSpliced(index, 1, newItem);
+      console.log(`Toggle done ${id}`);
+      return { protoList: newArr };
+    });
+  };
+
   addItem = (text) => {
+    this.idCounter += 1;
     const newItem = {
-      label: 'text',
-      important: false,
-      id: this.idCounter + 1,
+      label: text,
+      done: false,
+      id: this.idCounter,
+      active: true,
     };
 
     this.setState(({ protoList }) => {
@@ -62,13 +80,32 @@ export default class ToDoApp extends Component {
     });
   };
 
+  clearCompleted = () => {
+    this.setState(({ protoList }) => {
+      const newArr = protoList.filter((item) => item.done === false);
+      return { protoList: newArr };
+    });
+  };
+
   render() {
+    const doneCounter = this.state.protoList.filter((el) => el.done === true).length;
+    const leftCounter = this.state.protoList.length - doneCounter;
+    console.log(`we got ${leftCounter} elements left`);
+
     return (
       <section id="todoapp" className="todoapp">
-        <NewTaskForm />
+        <NewTaskForm addingItem={this.addItem}/>
         <section className="main">
-          <TaskList todos={this.state.protoList} onDeleted={this.deleteItem} />
-          <Footer addingItem={this.addItem} />
+          <TaskList
+            todos={this.state.protoList}
+            onDeleted={this.deleteItem}
+            toggleDone={this.onToggleDone}
+            filterMode={this.state.filterMode}
+          />
+          <Footer leftCounter={leftCounter}
+                  selectFilter={(mode) => this.selectFilter(mode)}
+                  filterMode={this.state.filterMode}
+                  clearCompleted={this.clearCompleted} />
         </section>
       </section>
     );
