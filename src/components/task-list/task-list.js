@@ -1,18 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Task from '../task/task';
 
 const TaskList = (props) => {
   const { onDeleted, toggleDone, filterMode } = props;
-  let condition;
-
-  /* switch (filterMode) {
-    case 'all': condition = true; break;
-    case 'active': condition = !this.item.done; break;
-    case 'completed': condition = this.item.done; break;
-    default: console.log('ЧТО ТО НЕ ТАК))');
-  } */
-  /* console.log(props);
-  console.log(onDeleted); */
 
   const elements = props.todos.map((item) => (
     ((filterMode === 'all') || ((filterMode === 'active') && !item.done) || ((filterMode === 'completed') && item.done))
@@ -29,6 +20,18 @@ const TaskList = (props) => {
       ) : undefined));
 
   return <ul className="todo-list">{elements}</ul>;
+};
+
+TaskList.defaultProps = {
+  onDeleted: () => { throw new Error('onDeleted func was not found'); },
+  toggleDone: () => { throw new Error('toggleDone func was not found'); },
+  filterMode: 'all',
+};
+
+TaskList.propTypes = {
+  onDeleted: PropTypes.func,
+  toggleDone: PropTypes.func,
+  filterMode: PropTypes.string,
 };
 
 export default TaskList;

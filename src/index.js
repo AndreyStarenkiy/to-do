@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css';
 
-// import TodoHeader from './components/todo-header/todo-header.js';
 import NewTaskForm from './components/new-task-form/new-task-form';
 import TaskList from './components/task-list/task-list';
 import Footer from './components/footer/footer';
 
-const root = ReactDOM.createRoot(document.getElementById('wrapper'));
+const root = ReactDOM.createRoot(document.querySelector('.wrapper'));
 
 export default class ToDoApp extends Component {
   idCounter = 100;
@@ -30,13 +29,13 @@ export default class ToDoApp extends Component {
       done: false,
       id: this.idCounter,
       active: true,
+      timeStamp: Date.now(),
     };
   }
 
   deleteItem = (id) => {
     this.setState(({ protoList }) => {
       const index = protoList.findIndex((el) => el.id === id);
-      /* console.log(index); */
 
       return {
         protoList: protoList.toSpliced(index, 1),
@@ -46,10 +45,6 @@ export default class ToDoApp extends Component {
 
   selectFilter = (mode) => {
     this.setState({ filterMode: mode });
-    /* this.setState((state) => {
-      console.log('пожалуйста сработай');
-      console.log(state);
-    }); */
   };
 
   onToggleDone = (id) => {
@@ -72,6 +67,7 @@ export default class ToDoApp extends Component {
       done: false,
       id: this.idCounter,
       active: true,
+      timeStamp: Date.now(),
     };
 
     this.setState(({ protoList }) => {
@@ -111,17 +107,5 @@ export default class ToDoApp extends Component {
     );
   }
 }
-
-/* const el = (
-  <div className='todo'>
-    <h1>To-do list!</h1>
-    <input placeholder='Start writing...'></input>
-    <ul>
-      <li>First thing's first</li>
-      <li>Last thing's last</li>
-    </ul>
-  </div>
-);
-console.log(el);      */
 
 root.render(<ToDoApp />);

@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class NewTaskForm extends Component {
   state = {
-    label: '',
+    inputString: '',
   };
 
-  onLabelChange = (e) => {
+  static defaultProps = {
+    leftCounter: undefined,
+    addingItem: () => { throw new Error('addingItem func was not found'); },
+  };
+
+  static propTypes = {
+    addingItem: PropTypes.func,
+  };
+
+  oninputStringChange = (e) => {
     this.setState({
-      label: e.target.value,
+      inputString: e.target.value,
     });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    if (this.state.label !== '') {
-      this.props.addingItem(this.state.label);
+    if (this.state.inputString !== '') {
+      this.props.addingItem(this.state.inputString);
       this.setState({
-        label: '',
+        inputString: '',
       });
     }
   };
@@ -29,9 +39,9 @@ export default class NewTaskForm extends Component {
         <input
           className="new-todo"
           placeholder="What needs to be done?"
-          onChange={this.onLabelChange}
+          onChange={this.oninputStringChange}
           autoFocus
-          value={this.state.label}
+          value={this.state.inputString}
         />
       </form>
     );

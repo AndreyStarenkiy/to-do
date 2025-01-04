@@ -1,5 +1,6 @@
 import React from 'react';
 import './tasks-filter.css';
+import PropTypes from 'prop-types';
 
 function TasksFilter({ selectFilter, filterMode }) {
   let allButtonClasses = 'all-button';
@@ -23,7 +24,6 @@ function TasksFilter({ selectFilter, filterMode }) {
       completedButtonClasses += ' selected';
       break;
     default:
-      console.log(filterMode);
       throw new Error('tasks-filter switch case found filterMode to be invalid');
   }
 
@@ -51,5 +51,15 @@ function TasksFilter({ selectFilter, filterMode }) {
     </ul>
   );
 }
+
+TasksFilter.defaultProps = {
+  selectFilter: () => { throw new Error('selectFilter func was not found'); },
+  filterMode: 'all',
+};
+
+TasksFilter.propTypes = {
+  selectFilter: PropTypes.func,
+  filterMode: PropTypes.string,
+};
 
 export default TasksFilter;
