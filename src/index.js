@@ -37,9 +37,7 @@ export default class ToDoApp extends Component {
     this.setState(({ protoList }) => {
       const index = protoList.findIndex((el) => el.id === id);
 
-      return {
-        protoList: protoList.toSpliced(index, 1),
-      };
+      return { protoList: protoList.toSpliced(index, 1) };
     });
   };
 
@@ -52,10 +50,12 @@ export default class ToDoApp extends Component {
       const index = protoList.findIndex((el) => el.id === id);
 
       const oldItem = protoList[index];
-      const newItem = { ...oldItem, done: !oldItem.done };
+      const newItem = {
+        ...oldItem,
+        done: !oldItem.done,
+      };
 
       const newArr = protoList.toSpliced(index, 1, newItem);
-      console.log(`Toggle done ${id}`);
       return { protoList: newArr };
     });
   };
@@ -86,11 +86,10 @@ export default class ToDoApp extends Component {
   render() {
     const doneCounter = this.state.protoList.filter((el) => el.done === true).length;
     const leftCounter = this.state.protoList.length - doneCounter;
-    console.log(`we got ${leftCounter} elements left`);
 
     return (
       <section id="todoapp" className="todoapp">
-        <NewTaskForm addingItem={this.addItem}/>
+        <NewTaskForm addingItem={this.addItem} />
         <section className="main">
           <TaskList
             todos={this.state.protoList}
@@ -98,10 +97,12 @@ export default class ToDoApp extends Component {
             toggleDone={this.onToggleDone}
             filterMode={this.state.filterMode}
           />
-          <Footer leftCounter={leftCounter}
-                  selectFilter={(mode) => this.selectFilter(mode)}
-                  filterMode={this.state.filterMode}
-                  clearCompleted={this.clearCompleted} />
+          <Footer
+            leftCounter={leftCounter}
+            selectFilter={(mode) => this.selectFilter(mode)}
+            filterMode={this.state.filterMode}
+            clearCompleted={this.clearCompleted}
+          />
         </section>
       </section>
     );

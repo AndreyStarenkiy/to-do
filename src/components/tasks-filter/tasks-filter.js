@@ -34,26 +34,28 @@ function TasksFilter({ selectFilter, filterMode }) {
   return (
     <ul className="filters">
       <li>
-        <button name="all"
-                className={allButtonClasses}
-                onClick={handleFilterSwitch}>All</button>
+        <button name="all" className={allButtonClasses} onClick={handleFilterSwitch}>
+          All
+        </button>
       </li>
       <li>
-        <button name="active"
-                className={activeButtonClasses}
-                onClick={handleFilterSwitch}>Active</button>
+        <button name="active" className={activeButtonClasses} onClick={handleFilterSwitch}>
+          Active
+        </button>
       </li>
       <li>
-        <button name="completed"
-                className={completedButtonClasses}
-                onClick={handleFilterSwitch}>Completed</button>
+        <button name="completed" className={completedButtonClasses} onClick={handleFilterSwitch}>
+          Completed
+        </button>
       </li>
     </ul>
   );
 }
 
 TasksFilter.defaultProps = {
-  selectFilter: () => { throw new Error('selectFilter func was not found'); },
+  selectFilter: () => {
+    throw new Error('selectFilter func was not found');
+  },
   filterMode: 'all',
 };
 

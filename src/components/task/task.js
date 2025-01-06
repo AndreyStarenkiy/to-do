@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
 
-/* const Task = (label) => <span>{label.label}</span>; */
+import './task.css';
 
 export default class Task extends Component {
   static defaultProps = {
@@ -10,8 +10,12 @@ export default class Task extends Component {
       label: 'Fix label prop',
       done: false,
     },
-    onDeleted: () => { throw new Error('onDeleted func was not found'); },
-    toggleDone: () => { throw new Error('onDeleted func was not found'); },
+    onDeleted: () => {
+      throw new Error('onDeleted func was not found');
+    },
+    toggleDone: () => {
+      throw new Error('onDeleted func was not found');
+    },
   };
 
   static propTypes = {
@@ -36,16 +40,15 @@ export default class Task extends Component {
     setTimeout(() => this.updateTimePassed(), 5000);
 
     if (done) {
-      // console.log('done is true');
       classNames += ' completed';
     }
 
     return (
       <div className="view" key={this.props.id}>
-        <input className="toggle" type="checkbox" />
+        <input className="toggle" type="checkbox" checked={done} onClick={toggleDone} />
         <label onClick={toggleDone}>
           <span className={classNames}>{label}</span>
-          <span className="created">created { formatDistanceToNow(timeStamp, { includeSeconds: true }) } ago</span>
+          <span className="created">created {formatDistanceToNow(timeStamp, { includeSeconds: true })} ago</span>
         </label>
         <button className="icon icon-edit"></button>
         <button className="icon icon-destroy" onClick={onDeleted}></button>

@@ -1,38 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import './new-task-form.css';
+
 export default class NewTaskForm extends Component {
-  state = {
-    inputString: '',
-  };
+  state = { inputString: '' };
 
   static defaultProps = {
     leftCounter: undefined,
-    addingItem: () => { throw new Error('addingItem func was not found'); },
+    addingItem: () => {
+      throw new Error('addingItem func was not found');
+    },
   };
 
-  static propTypes = {
-    addingItem: PropTypes.func,
-  };
+  static propTypes = { addingItem: PropTypes.func };
 
   oninputStringChange = (e) => {
-    this.setState({
-      inputString: e.target.value,
-    });
+    this.setState({ inputString: e.target.value });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
     if (this.state.inputString !== '') {
       this.props.addingItem(this.state.inputString);
-      this.setState({
-        inputString: '',
-      });
+      this.setState({ inputString: '' });
     }
   };
 
   render() {
-    /* this.props; */
     return (
       <form className="header" onSubmit={this.onSubmit}>
         <h1>todos</h1>
