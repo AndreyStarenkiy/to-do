@@ -6,6 +6,7 @@ import './index.css';
 import NewTaskForm from './components/new-task-form/new-task-form';
 import TaskList from './components/task-list/task-list';
 import Footer from './components/footer/footer';
+import Task from './components/task/task';
 
 const root = ReactDOM.createRoot(document.querySelector('.wrapper'));
 
@@ -86,6 +87,29 @@ export default class ToDoApp extends Component {
   render() {
     const doneCounter = this.state.protoList.filter((el) => el.done === true).length;
     const leftCounter = this.state.protoList.length - doneCounter;
+    const { filterMode, protoList } = this.state;
+    const elementsToRender = protoList.map((item) => {
+      const condition =
+        filterMode === 'all' || (filterMode === 'active' && !item.done) || (filterMode === 'completed' && item.done);
+
+      if (condition) {
+        return (
+          <li key={item.id}>
+            <Task
+              item={item}
+              onDeleted={() => {
+                this.deleteItem(item.id);
+              }}
+              toggleDone={() => {
+                this.onToggleDone(item.id);
+              }}
+            />
+          </li>
+        );
+      }
+
+      return undefined;
+    });
 
     return (
       <section id="todoapp" className="todoapp">
@@ -96,6 +120,7 @@ export default class ToDoApp extends Component {
             onDeleted={this.deleteItem}
             toggleDone={this.onToggleDone}
             filterMode={this.state.filterMode}
+            elementsToRender={elementsToRender}
           />
           <Footer
             leftCounter={leftCounter}

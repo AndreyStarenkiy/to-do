@@ -9,12 +9,13 @@ export default class Task extends Component {
     item: {
       label: 'Fix label prop',
       done: false,
+      timeStamp: new Date(),
     },
     onDeleted: () => {
       throw new Error('onDeleted func was not found');
     },
     toggleDone: () => {
-      throw new Error('onDeleted func was not found');
+      throw new Error('ToggleDone func was not found');
     },
   };
 
@@ -22,6 +23,7 @@ export default class Task extends Component {
     item: PropTypes.shape({
       label: PropTypes.string,
       done: PropTypes.bool,
+      timeStamp: PropTypes.number,
     }),
     onDeleted: PropTypes.func,
     toggleDone: PropTypes.func,
@@ -45,7 +47,7 @@ export default class Task extends Component {
 
     return (
       <div className="view" key={this.props.id}>
-        <input className="toggle" type="checkbox" checked={done} onClick={toggleDone} />
+        <input className="toggle" type="checkbox" checked={done} onChange={toggleDone} />
         <label onClick={toggleDone}>
           <span className={classNames}>{label}</span>
           <span className="created">created {formatDistanceToNow(timeStamp, { includeSeconds: true })} ago</span>

@@ -13,7 +13,10 @@ export default class NewTaskForm extends Component {
     },
   };
 
-  static propTypes = { addingItem: PropTypes.func };
+  static propTypes = {
+    leftCounter: PropTypes.number,
+    addingItem: PropTypes.func,
+  };
 
   oninputStringChange = (e) => {
     this.setState({ inputString: e.target.value });

@@ -3,25 +3,19 @@ import './tasks-filter.css';
 import PropTypes from 'prop-types';
 
 function TasksFilter({ selectFilter, filterMode }) {
-  let allButtonClasses = 'all-button';
-  let activeButtonClasses = 'active-button';
-  let completedButtonClasses = 'completed-button';
+  let allButtonClasses = '';
+  let activeButtonClasses = '';
+  let completedButtonClasses = '';
 
   switch (filterMode) {
     case 'all':
-      allButtonClasses += ' selected';
-      activeButtonClasses = activeButtonClasses.replace(' selected', '');
-      completedButtonClasses = completedButtonClasses.replace(' selected', '');
+      allButtonClasses = 'selected';
       break;
     case 'active':
-      allButtonClasses = allButtonClasses.replace(' selected', '');
-      activeButtonClasses += ' selected';
-      completedButtonClasses = completedButtonClasses.replace(' selected', '');
+      activeButtonClasses = 'selected';
       break;
     case 'completed':
-      allButtonClasses = allButtonClasses.replace(' selected', '');
-      activeButtonClasses = activeButtonClasses.replace(' selected', '');
-      completedButtonClasses += ' selected';
+      completedButtonClasses = 'selected';
       break;
     default:
       throw new Error('tasks-filter switch case found filterMode to be invalid');
