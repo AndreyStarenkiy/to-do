@@ -31,8 +31,26 @@ export default class ToDoApp extends Component {
       id: this.idCounter,
       active: true,
       timeStamp: Date.now(),
+      time: 600000,
     };
   }
+
+  addItem = (text, min = null, sec = null) => {
+    this.idCounter += 1;
+    const newItem = {
+      label: `${text}`,
+      done: false,
+      id: this.idCounter,
+      active: true,
+      timeStamp: Date.now(),
+      time: min * 60 * 1000 + sec * 1000,
+    };
+
+    this.setState(({ protoList }) => {
+      const newArr = [newItem, ...protoList];
+      return { protoList: newArr };
+    });
+  };
 
   deleteItem = (id) => {
     this.setState(({ protoList }) => {
@@ -61,22 +79,6 @@ export default class ToDoApp extends Component {
     });
   };
 
-  addItem = (text) => {
-    this.idCounter += 1;
-    const newItem = {
-      label: text,
-      done: false,
-      id: this.idCounter,
-      active: true,
-      timeStamp: Date.now(),
-    };
-
-    this.setState(({ protoList }) => {
-      const newArr = [...protoList, newItem];
-      return { protoList: newArr };
-    });
-  };
-
   clearCompleted = () => {
     this.setState(({ protoList }) => {
       const newArr = protoList.filter((item) => item.done === false);
@@ -84,27 +86,45 @@ export default class ToDoApp extends Component {
     });
   };
 
+  handleEditDone = (input, itemId) => {
+    const index = this.state.protoList.findIndex((obj) => obj.id === itemId);
+    const arr = this.state.protoList;
+
+    arr[index].label = input;
+
+    this.setState({ protoList: arr });
+  };
+
+  saveTime = (time, itemId) => {
+    const index = this.state.protoList.findIndex((obj) => obj.id === itemId);
+    const arr = this.state.protoList;
+    arr[index].time = time;
+    this.setState({ protoList: arr });
+  };
+
   render() {
     const doneCounter = this.state.protoList.filter((el) => el.done === true).length;
     const leftCounter = this.state.protoList.length - doneCounter;
     const { filterMode, protoList } = this.state;
+
     const elementsToRender = protoList.map((item) => {
       const condition =
         filterMode === 'all' || (filterMode === 'active' && !item.done) || (filterMode === 'completed' && item.done);
 
       if (condition) {
         return (
-          <li key={item.id}>
-            <Task
-              item={item}
-              onDeleted={() => {
-                this.deleteItem(item.id);
-              }}
-              toggleDone={() => {
-                this.onToggleDone(item.id);
-              }}
-            />
-          </li>
+          <Task
+            key={item.id}
+            item={item}
+            onDeleted={() => {
+              this.deleteItem(item.id);
+            }}
+            toggleDone={() => {
+              this.onToggleDone(item.id);
+            }}
+            handleEditDone={this.handleEditDone}
+            saveTime={this.saveTime}
+          />
         );
       }
 

@@ -1,0 +1,24 @@
+.timer {
+  font-size: 13px;
+  color: gray;
+}
+
+.main .todo-list li .icon-pause,
+.main .todo-list li .icon-play {
+  pointer-events: auto;
+  width: 18px;
+  height: 18px;
+}
+
+.main .todo-list li .icon-play,
+.main .todo-list li .icon-pause {
+  font-size: 15px;
+}
+
+.icon-pause:after {
+  content: '⏸';
+}
+
+.icon-play:after {
+  content: '▶';
+}
