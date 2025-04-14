@@ -201,7 +201,7 @@ input::-webkit-inner-spin-button {
 
 .completed {
   color: #cdcdcd !important;
-  transition: color .4s !important;
+  transition: color 0.4s !important;
   text-decoration: line-through !important;
 }
 

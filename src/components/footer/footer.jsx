@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './footer.css';
 
-import TasksFilter from '../tasks-filter/tasks-filter';
+import TasksFilter from '../tasks-filter/tasks-filter.jsx';
 
 function Footer({ leftCounter, selectFilter, filterMode, clearCompleted }) {
   return (
